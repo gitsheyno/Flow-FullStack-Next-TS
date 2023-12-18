@@ -8,17 +8,20 @@ interface DataItem {
   type: string;
 }
 
+// Define the shape of the context value
 interface StoreContextProps {
   data: DataItem[];
   setData: React.Dispatch<React.SetStateAction<DataItem[]>>;
 }
 
+// Initial data to populate the context
 const initialData: DataItem[] = [
   { name: "Excel Reader", type: "Source" },
   { name: "Column Filter", type: "Manipulator" },
   { name: "Excel Writer", type: "Predictor" },
 ];
 
+// Create a context for managing the data
 export const StoreContext = createContext<StoreContextProps | undefined>(
   undefined
 );

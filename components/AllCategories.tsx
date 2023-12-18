@@ -12,6 +12,7 @@ interface AllCategoriesProps {
   query: string;
 }
 export default async function AllCategories({ query }: AllCategoriesProps) {
+  // -------------<< Fetching data based on the query >>-------------
   const categores: Data[] = await fetchAll(query);
 
   return (

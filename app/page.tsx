@@ -1,4 +1,3 @@
-import SearchInput from "@/components/Search";
 import AllCategories from "@/components/AllCategories";
 import { Suspense } from "react";
 export default function Home({
@@ -9,7 +8,7 @@ export default function Home({
   console.log("query", searchParams?.query);
   return (
     <div className="relative px-40 mx-auto  h-full  ">
-      <Suspense fallback={<p>Categories Loading...</p>}>
+      <Suspense>
         <AllCategories query={searchParams?.query} />
       </Suspense>
     </div>

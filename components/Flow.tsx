@@ -23,8 +23,13 @@ import CustomNode from "./CustomNode";
 import "reactflow/dist/style.css";
 
 export default function Flow() {
+  // Accessing the context
   const ctx = useContext(StoreContext);
+
+  // State to manage node data
   const [newData, setData] = useState<Node[]>([]);
+
+  // Update node data based on context changes
 
   useEffect(() => {
     if (ctx?.data) {
@@ -42,27 +47,14 @@ export default function Flow() {
     }
   }, [ctx?.data]);
 
-  //   const initialNodes: Node[] = [
-  //     {
-  //       id: "1",
-  //       type: "input",
-  //       data: { label: "Node 1" },
-  //       position: { x: 250, y: 5 },
-  //     },
-  //     { id: "2", data: { label: "Node 2" }, position: { x: 100, y: 100 } },
-  //     { id: "3", data: { label: "Node 3" }, position: { x: 400, y: 100 } },
-  //     {
-  //       id: "4",
-  //       type: "custom",
-  //       data: { label: "Custom Node" },
-  //       position: { x: 400, y: 200 },
-  //     },
-  //   ];
+  // Define initial edges
 
   const initialEdges: Edge[] = [
     { id: "e1-2", source: "1", target: "2", animated: true },
-    { id: "e1-3", source: "1", target: "3" },
+    { id: "e1-3", source: "1", target: "3", animated: true },
   ];
+
+  // Define node types
 
   const nodeTypes = useMemo(
     () => ({
@@ -71,11 +63,18 @@ export default function Flow() {
     []
   );
 
+  // Access node and edge state hooks
+
   const [nodes, setNode, onNodesChange] = useNodesState(newData);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  // Update node state when newData changes
+
   useEffect(() => {
     setNode(newData);
-  }, [newData]);
+  }, [newData, setNode]);
+
+  // Callback for connecting nodes
 
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),

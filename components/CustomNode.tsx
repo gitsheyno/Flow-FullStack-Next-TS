@@ -11,8 +11,9 @@ const CustomNode = ({
   console.log(props, "prop");
   return (
     <>
-      <div className="rounded-lg shadow-md p-8 bg-gradient-to-br from-blue-400 to-blue-500">
+      <div className=" relative rounded-lg shadow-md p-8 bg-gradient-to-br from-blue-400 to-blue-500">
         {/* Node content */}
+        <div className=""></div>
         <div className="flex items-center justify-between">
           <Handle
             type="target"

@@ -12,22 +12,31 @@ interface Data {
 }
 
 export default function Commands({ data }: { data: Data[] }) {
+  // -------------<< necessary hooks and context >>-------------
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const ctx = useContext(StoreContext);
+
+  // -------------<< State hooks for managing input and results >>-------------
+
   const [inputValue, setInputValue] = useState("");
   const [showResults, setShowResults] = useState(false);
   const debouncedValue = useDebounce<string>(inputValue, 500);
   const [filteredData, setFilteredData] = useState<Data[]>(data);
 
+  // -------------<< Handling input changes >>-------------
+
   const handleInputChange = (term: string) => {
     setInputValue(term);
   };
+  // -------------<< Handling focus >>-------------
 
   const handleFocus = () => {
     setShowResults(true);
   };
+  // -------------<< Handling list item click >>-------------
 
   const handleClickList = (term: string) => {
     const params = new URLSearchParams(searchParams);
@@ -39,15 +48,18 @@ export default function Commands({ data }: { data: Data[] }) {
     }
     replace(`${pathname}?${params.toString()}`);
 
+    // -------------<< Adding selected data to store >>-------------
+
     const selected = filteredData.filter((item) => item.id === term);
 
     ctx?.setData((prev) => [...prev, ...selected]);
+
     setShowResults(false);
     replace(`${pathname}`);
   };
 
   useEffect(() => {
-    // Filter the data based on the debounced input value
+    //--------<< Filter the data based on the debounced input value >>--------
     const filtered = data.filter(
       (item) =>
         item.name.toLowerCase().includes(debouncedValue.toLowerCase()) ||
