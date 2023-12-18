@@ -10,7 +10,7 @@ async function main() {
         { name: "CSV Reader", type: "Source" },
         { name: "Column Filter", type: "Manipulator" },
         { name: "CSV Writer", type: "Predictor" },
-        { name: "CSV Writer", type: "Predictor" },
+        { name: "Excel Writer", type: "Predictor" },
       ],
     });
   } catch (err) {
